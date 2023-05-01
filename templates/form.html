@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        #field1{
+              width: 140px;
+              height: 30px;
+              border: 1px solid #999;
+              font-size: 15px;
+              color: gray;
+              background-color: #eee;
+              border-radius: 1px;
+              }
+
+        #field2{
+              width: 140px;
+              height: 30px;
+              border: 1px solid #999;
+              font-size: 15px;
+              color: gray;
+              background-color: #eee;
+              border-radius: 1px;
+              }
+
+        #new{
+              width: 140px;
+              height: 30px;
+              border: 1px solid #999;
+              font-size: 15px;
+              color: gray;
+              background-color: #eee;
+              border-radius: 1px;
+              }
+
+         #mes{
+              font-size: 18px;
+              }
+    </style>
+
+    <title>Form</title>
+    <div class="text-center">
+    <h1>FORM</h1>
+        </div>
+</head>
+<body>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="container">
+
+
+    {% for msg in messages %}
+        <p id="mes">{{msg}}</p>
+    <button class="mb-3"><a href="/">Home</a></button>
+    {% endfor %}
+
+
+
+
+
+        <div class="form-group ">
+            <label>Name</label>
+            <input type="text" class="form-control " name="name"  placeholder="Enter your Name"><br>
+        </div>
+        <div class="form-group ">
+            <label>Date of Birth</label>
+            <input type="date" class="form-control " name="dob" placeholder="Date of Birth"><br>
+        </div>
+        <div class="form-group ">
+            <label>Age</label>
+            <input type="number" class="form-control " name="age" placeholder="Enter your Age"><br>
+        </div>
+        <div class="form-group">
+            <label>Gender</label>
+            <input type="text" class="form-control" name="gender" placeholder="Gender"><br>
+        </div>
+        <div class="form-group">
+            <label>Phone Number</label>
+            <input type="text" class="form-control" name="phonenumber" placeholder="Enter your Ph number"><br>
+        </div>
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" class="form-control" name="mailid" placeholder="Enter Email"><br>
+
+        </div>
+        <div class="form-group">
+            <label>Address</label>
+            <input type="text" class="form-control" name="address" placeholder="Address"><br>
+
+        </div>
+
+        <form>
+  <label for="field1" >Select Department:</label><br>
+  <select id="field1" class="mb-3" name="field1" onchange="updateField2Options()">
+    <option value="">--Choose a Department--</option>
+    <option value="cs">Computer Science</option>
+    <option value="com">Commerce</option>
+    <option value="math">Mathematics</option>
+    <option value="micro">Microbiology</option>
+    <option value="eng">English</option>
+  </select>
+  <br>
+  <label for="field2">Select Course:</label><br>
+  <select id="field2" name="field2" class="mb-3">
+    <option value="">--Choose a course--</option>
+  </select>
+</form>
+<script>
+  function updateField2Options() {
+  const field1 = document.getElementById("field1");
+  const field2 = document.getElementById("field2");
+
+  // Clear current options
+  field2.innerHTML = "";
+
+  // Populate options based on selected field
+  if (field1.value === "cs") {
+    addOption(field2, "BCA", "bca");
+    addOption(field2, "BSc Computer Science", "sc");
+  } else if (field1.value === "com") {
+    addOption(field2, "BCom", "bcom");
+    addOption(field2, "International Buisiness", "ibm");
+  } else if (field1.value === "math") {
+    addOption(field2, "BSc Mathematics", "bmath");
+    addOption(field2, "BSc Statistics", "stat");
+  } else if (field1.value === "micro") {
+    addOption(field2, "BSc Microbiology", "bmic");
+    addOption(field2, "Immunology", "imm");
+  } else if (field1.value === "eng") {
+    addOption(field2, "Communicative English", "ceng");
+    addOption(field2, "Literature", "lit");
+  }
+}
+
+function addOption(selectElement, optionText, optionValue) {
+  const option = document.createElement("option");
+  option.text = optionText;
+  option.value = optionValue;
+  selectElement.add(option);
+}
+
+</script>
+
+
+
+<div class="mb-3">
+    <label for="field1" >Purpose:</label><br>
+   <select id="new"  name="field1" >
+    <option value="">--Choose a field--</option>
+    <option value="enq">Enquiry</option>
+    <option value="choose">Choose Course</option>
+    <option value="res">Research</option>
+  </select>
+</div>
+<div>
+    <div class="mb-3">
+    <p style="color: black;">Materials Provided</p>
+    <input type="checkbox" id="material1"  name="material1" value="Note Book" >
+    <label >Note Book</label><br>
+     <input type="checkbox" id="material2" name="material2" value="Pen">
+    <label>Pen</label><br>
+     <input type="checkbox" id="material3" name="material3" value="Reference Book">
+    <label>Reference Book</label><br>
+     <input type="checkbox" id="material4" name="material4" value="Exam Papers">
+    <label>Exam Paper</label><br>
+        </div>
+    <div  class="text-center">
+    <input class="btn btn-outline-default btn-lg mb-3"  type="submit">
+    <button class="btn btn-outline-default btn-lg mb-3"><a href="/logout">Logout</a></button>
+        </div>
+
+</div>
+
+
+
+</div>
+
+
+</form>
+<script>
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+</script>
+</body>
+</html>
+{% endblock %}
